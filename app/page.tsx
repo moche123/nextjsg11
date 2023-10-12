@@ -1,113 +1,26 @@
-import Image from 'next/image'
+import Banner from "@/components/Banner";
+import LoadingBanner from "@/components/Banner/loading-banner";
+import Image from "next/image";
+import { Suspense } from 'react';
 
 export default function Home() {
+  const imgBase64 = 'data:image/webp;base64,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'
+  const outsideSrc = 'https://png.pngtree.com/background/20230613/original/pngtree-landscape-pictures-video-download-free-for-pc-and-laptop-wallpaper-download-picture-image_3428792.jpg'
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Image
+        src={outsideSrc}
+        width={1000}
+        height={1000}
+        alt='Alt example'
+        blurDataURL={imgBase64}
+        placeholder='blur'
+      />
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <Suspense fallback={ <LoadingBanner /> }>
+        <Banner data= {{index:1}} ></Banner>
+      </Suspense>
+    </>
   )
 }
